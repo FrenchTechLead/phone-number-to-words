@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Numéro en mots hébreux</title>
+  <meta name="description" content="Chiffrez un numéro de téléphone en mots hébreux, et déchiffrez-le.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <header>
+      <h1>Numéro <span class="he" lang="he">→ מילים</span></h1>
+      <p class="lead">Chaque chiffre devient un mot hébreu tiré au hasard parmi plusieurs possibles. Le même numéro donne un texte différent à chaque fois, mais se déchiffre toujours.</p>
+    </header>
+
+    <section class="card key-card">
+      <label for="key">Clé secrète <span class="muted">(facultative)</span></label>
+      <input id="key" type="text" autocomplete="off" spellcheck="false" placeholder="Sans clé : table par défaut">
+      <p class="hint">Avec une clé, les mots sont redistribués entre les chiffres. Il faut la même clé pour déchiffrer.</p>
+    </section>
+
+    <div class="tabs" role="tablist">
+      <button role="tab" id="tab-enc" aria-selected="true" aria-controls="panel-enc">Chiffrer</button>
+      <button role="tab" id="tab-dec" aria-selected="false" aria-controls="panel-dec">Déchiffrer</button>
+    </div>
+
+    <section class="card" id="panel-enc" role="tabpanel" aria-labelledby="tab-enc">
+      <label for="phone">Numéro de téléphone</label>
+      <input id="phone" type="tel" inputmode="tel" autocomplete="off" placeholder="+33 6 12 34 56 78">
+      <div class="out-head">
+        <span class="label">Version chiffrée</span>
+        <div class="actions">
+          <button id="reroll" class="ghost" title="Tirer d'autres mots">↻ Autres mots</button>
+          <button id="copy-enc" class="ghost">Copier</button>
+          <button id="to-dec" class="ghost" title="Envoyer vers Déchiffrer">Tester →</button>
+        </div>
+      </div>
+      <div id="enc-out" class="output he" lang="he" dir="rtl" aria-live="polite"></div>
+    </section>
+
+    <section class="card" id="panel-dec" role="tabpanel" aria-labelledby="tab-dec" hidden>
+      <label for="words">Mots hébreux</label>
+      <textarea id="words" lang="he" dir="rtl" rows="3" spellcheck="false" placeholder="עט תפוח דוב דבורה …"></textarea>
+      <div class="out-head">
+        <span class="label">Numéro déchiffré</span>
+        <div class="actions"><button id="copy-dec" class="ghost">Copier</button></div>
+      </div>
+      <div id="dec-out" class="output number" aria-live="polite"></div>
+      <p id="dec-warn" class="warn" hidden></p>
+    </section>
+
+    <details class="card">
+      <summary>Table de correspondance</summary>
+      <div id="table" class="table"></div>
+    </details>
+
+    <footer>Tout se passe dans votre navigateur ; rien n'est envoyé.</footer>
+  </main>
+  <script src="cipher.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
